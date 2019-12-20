@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require('./dbconnect.php');
+    require('../dbconnect.php');
 
     if (!isset($_SESSION['join'])) {
         header('Location: index.php');
@@ -18,7 +18,7 @@
             sha1($_SESSION['join']['password']),
         ));
         unset($_SESSION['join']);
-        
+
         header('Location: thanks.php');
         exit();
     }

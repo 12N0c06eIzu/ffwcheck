@@ -1,21 +1,11 @@
 <?php
     session_start();
 
+
     if (!empty($_POST)) {
-        if ($_POST['email'] == '') {
-            $error['email'] == 'blank';
-        }
-        if ($_POST['userid'] == '') {
-            $error['userid'] == 'blank';
-        }
-        if ($_POST['username'] == '') {
-            $error['username'] == 'blank';
-        }
-        if ($_POST['password'] == '') {
-            $error['password'] == 'blank';
-        }
-        if (strlen($_POST['password']) < 4) {
-            $error['password'] == 'blank';
+        $password = $_POST['password'];
+        if (strlen($password) < 4) {
+            $error['password'] == 'length';
         }
 
         if (empty($error)) {
@@ -135,7 +125,8 @@
                 </dd>
             </dl>
             <div>
-                <button type="submit">入力内容を確認する</button>
+                <input type="submit" value="入力内容を確認する">
+                <!-- <button type="submit">入力内容を確認する</button> -->
             </div>
         </form>
     </main>
