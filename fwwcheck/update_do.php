@@ -1,7 +1,11 @@
 <?php
 //DB読み込み用
-//require('../dbconnect.php');
+require('../dbconnect.php');
+$statement = $db -> prepare('UPDATE weaponlist SET wname=?, wtype=?, atk=?, rare=?, level=? WHERE wid=?');
+$statement -> execute(array($_POST['wname'], $_POST['wtype'], $_POST['atk'], $_POST['rare'],  $_POST['level'], $_POST['wid']));
 
+header('Location: wlist.php');
+exit();
 ?>
 
 <!DOCTYPE html>

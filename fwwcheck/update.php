@@ -21,6 +21,16 @@ if(isset($_POST["weaponregister"])){
   exit();
 }
 
+
+if(isset($_REQUEST['wid']) && is_numeric($_REQUEST['wid'])){
+  $wid = $_REQUEST['wid'];
+  $editWeapons=$db->prepare('SELECT * FROM weaponlist WHERE wid=?');
+  $editWeapons -> execute(array($wid));
+  $editWeapon = $editWeapons -> fetch();
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -37,7 +47,8 @@ if(isset($_POST["weaponregister"])){
   </header>
   <main>
     <div class="">
-      <form class="" action="" method="post" enctype="multipart/form-data">
+      <form class="" action="update_do.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="wid" value="<?php print($wid); ?>">
         <table border="1">
           <th>武器名</th>
           <th>レベル</th>
@@ -46,46 +57,54 @@ if(isset($_POST["weaponregister"])){
           <th>希少度</th>
           <tr>
             <td>
-              <select class="wnameselect" id="wnameselect" style="width:130px"  name="wname">
+              <select class="wnameselect" id="wnameselect" style="width:130px"  name="wname" value="<?php echo $editWeapon['wname'];?>">
               </select>
             </td>
             <td>
-              <input type="number" min="1" max="10" value="3" name="level">
+              <input type="number" min="1" max="10" value="<?php echo $editWeapon['level']?>" name="level">
             </td>
             <td>
-              <input type="text" value="100"  name="atk">
+              <input type="text" value="<?php echo $editWeapon['atk']?>"  name="atk">
 
             </td>
             <td>
               <select class="" name="wtype">
-                <option value="晩成">晩成</option>
-                <option value="変則">変則</option>
-                <option value="平坦">平坦</option>
-                <option value="早熟">早熟</option>
+                <option value="晩成"
+                <?php echo $editWeapon['wtype'] == "晩成" ? 'selected' : '';?>
+                >晩成</option>
+                <option value="変則" <?php echo $editWeapon['wtype'] == "変則" ? 'selected' : '';?>>変則</option>
+                <option value="平坦" <?php echo $editWeapon['wtype'] == "平坦" ? 'selected' : '';?>>平坦</option>
+                <option value="早熟" <?php echo $editWeapon['wtype'] == "早熟" ? 'selected' : '';?>>早熟</option>
               </select>
             </td>
             <td>
-              <input type="number" min="1" max="8" value="8"  name="rare">
+              <input type="number" min="1" max="8" value="<?php echo $editWeapon['rare'] ?>"  name="rare">
             </td>
           </tr>
         </table>
         <div class="">
-          <input type="submit" name="weaponregister" value="武器登録">
+          <input type="submit" name="weaponregister" value="編集完了">
         </div>
       </form>
     </div>
-  <?php require('./list.php'); ?>
+
+
+    <?php require('./list.php'); ?>
+
   </main>
   <footer></footer>
-
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
 
   <script type="text/javascript">
   $(function(){
-    $('.wnameselect').select2();
     createSelectBox(weaponList, "wnameselect");
+    $('.wnameselect').select2();
+    $('.wnameselect').val("<?php echo $editWeapon['wname']?>").trigger('change');
+
+    // $('.wnameselect').select2('val', 51);
 
     let check = '.allcheck';
     let box = 'input[name="index[]"]';

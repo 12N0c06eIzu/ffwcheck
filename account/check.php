@@ -8,7 +8,7 @@
     }
 
     if(!empty($_POST)){
-        $statement = $db -> prepare('INSERT INTO userlist SET userid=?, email=?, username=?, password=?, created=NOW()');
+        $statement = $db -> prepare('INSERT INTO userlist SET email=?, userid=?, username=?, password=?, created=NOW()');
 
         echo $ret = $statement -> execute(array(
         // $ret = $statement->execute(array(
@@ -54,7 +54,7 @@
                 <dt>パスワード</dt>
                 <dd>【非表示】</dd>
             </dl>
-            <div><a href="index.php?action=rewrite">&laquo;&nbsp;書き直す</a>|<input type="submit" value="登録する"></div>
+            <div><a href="./registerAccount.php?action=rewrite">&laquo;&nbsp;書き直す</a>|<input type="submit" value="登録する"></div>
         </form>
     </main>
     <footer></footer>
