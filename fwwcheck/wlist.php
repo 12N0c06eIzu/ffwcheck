@@ -65,15 +65,17 @@ if(isset($_POST["weaponregister"])){
               </select>
             </td>
             <td>
-              <input type="number" min="1" max="8" value="8"  name="rare">
+              <input id="rare" type="number" min="1" max="8" value="8"  name="rare" onchange="createMod();">
             </td>
           </tr>
         </table>
+        <?php require('./mod.php'); ?>
         <div class="">
           <input type="submit" name="weaponregister" value="武器登録">
         </div>
       </form>
     </div>
+
   <?php require('./list.php'); ?>
   </main>
   <footer></footer>
@@ -86,7 +88,8 @@ if(isset($_POST["weaponregister"])){
   $(function(){
     $('.wnameselect').select2();
     createSelectBox(weaponList, "wnameselect");
-
+    $('.modselect').select2();
+    
     let check = '.allcheck';
     let box = 'input[name="index[]"]';
     $(check).click(function(){
@@ -101,10 +104,9 @@ if(isset($_POST["weaponregister"])){
       }else {
         $(check).prop('checked', false);
       }
-    })
-
-
+    });
   });
+
 </script>
 <script src="../js/list.js"></script>
 <script src="../js/selectBoxGeneration.js"></script>
