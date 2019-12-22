@@ -85,9 +85,12 @@ function createSelectBoxModList($box){
         deleteBox++;
         console.log(deleteBox);
       }
-
-      // while () {      }
-      while (i > deleteBox) {
+      let a = 0
+      while (a <= 12) {
+        $('.hidebox'+a).show();
+        a++;
+            }
+      while (i > deleteBox && gene != 8) {
         $('.hidebox'+i).hide();
         i--;
       }
